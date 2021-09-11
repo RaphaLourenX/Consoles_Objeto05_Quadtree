@@ -1,11 +1,56 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.Random;
 
-public class Main {
+import javax.swing.JFrame;
+
+public class Main extends JFrame{
 	public static int SCREENRES_X = 600;
 	public static int SCREENRES_Y = 600;
+	
+	public static int PARTICLENUMBER = 20;
+	public static int PSIZE = 10;
+	
+	static Particle[] particles = new Particle[PARTICLENUMBER];
+	
+	public Main(int _x, int _y) {
+		
+		new Time().start();
+		setSize(_x, _y);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setVisible(true);
+	}
 
+	public void paint(Graphics g) {
+		//Set Background Color
+		g.setColor(Color.black);
+		g.fillRect(0, 0, SCREENRES_X, SCREENRES_Y);
+		
+		for (int i = 0; i < particles.length; i++) {
+			g.setColor(Color.white);
+			g.fillOval(particles[i].px, particles[i].py, PSIZE, PSIZE);
+			}
+		}
+		
 	public static void main(String args[]) {
-		new Screen(SCREENRES_X, SCREENRES_Y);
+		for (int i = 0; i < PARTICLENUMBER; i++) {
+			Random r = new Random();
+			int rx = r.nextInt(SCREENRES_X);
+			int ry = r.nextInt(SCREENRES_Y);
+			particles[i] = new Particle(rx, ry, SCREENRES_X, SCREENRES_Y);
+			particles[i].start();
+		}
+	
+		new Main(SCREENRES_X, SCREENRES_Y);
+	}
+	
+	public class Time extends Thread{
+		public void run() {
+			while(true) {
+				repaint();
+			}
+		}
 	}
 }
