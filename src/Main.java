@@ -16,6 +16,7 @@ public class Main extends JFrame{
 	public static int PSIZE = 10;
 	
 	static Particle[] particles;
+	public static ArrayList<Region> regions = new ArrayList<>();
 	
 	public static enum CollisionMode
 	{
@@ -38,6 +39,11 @@ public class Main extends JFrame{
 		//Set Background Color
 		g.setColor(Color.black);
 		g.fillRect(0, 0, SCREENRES_X, SCREENRES_Y);
+		
+		for (Region region : regions) {
+			g.setColor(Color.blue);
+			g.drawRect(region.iX, region.iY, region.fX, region.fY);
+		}
 		
 		for (int i = 0; i < particles.length; i++) {
 			g.setColor(particles[i].color);
@@ -68,6 +74,8 @@ public class Main extends JFrame{
 			int rx = r.nextInt(SCREENRES_X);
 			int ry = r.nextInt(SCREENRES_Y);
 			particles[i] = new Particle(rx, ry, SCREENRES_X, SCREENRES_Y, particles);
+			regions.add(new Region(20, 20, SCREENRES_X-40, SCREENRES_Y-40, particles, regions));
+			regions.forEach(region->region.createQuadrant(1));;
 			particles[i].start();
 		}
 	
