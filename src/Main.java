@@ -9,8 +9,8 @@ import java.util.Random;
 import javax.swing.JFrame;
 
 public class Main extends JFrame{
-	public static int SCREENRES_X = 600;
-	public static int SCREENRES_Y = 600;
+	public static int SCREENRES_X = 1280;
+	public static int SCREENRES_Y = 720;
 	
 	public static int PARTICLENUMBER = 0;
 	public static int PSIZE = 10;
@@ -40,7 +40,7 @@ public class Main extends JFrame{
 		g.fillRect(0, 0, SCREENRES_X, SCREENRES_Y);
 		
 		for (int i = 0; i < particles.length; i++) {
-			g.setColor(Color.white);
+			g.setColor(particles[i].color);
 			g.fillOval(particles[i].px, particles[i].py, PSIZE, PSIZE);
 			}
 		}

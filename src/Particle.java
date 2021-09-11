@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.Random;
 
 public class Particle extends Thread {
@@ -12,6 +13,8 @@ public class Particle extends Thread {
 	int AlarmState = 1;
 	
 	Particle[] particles;
+	
+	Color color = Color.white;
 	
 	public Particle(int px, int py, int lx, int ly, Particle[] particles) {
 		this.px = px; this.py = py;
@@ -73,7 +76,7 @@ public class Particle extends Thread {
 				   py + 8 >= other.py) 
 				{
 					Collide();
-				}
+				} 
 			}
 		}
 		
@@ -85,6 +88,8 @@ public class Particle extends Thread {
 	{
 		px = lastX;
 		py = lastY;
+		color = Color.red;
+		return;
 	}
 	
 	public void run() {
