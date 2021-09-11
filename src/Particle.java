@@ -44,10 +44,10 @@ public class Particle extends Thread {
 				AlarmState = 0;
 			}
 			
-			if (this.px < 0) this.px = 0;
-			if (this.py < 0) this.py = 0;
-			if (this.px > this.lx) this.px = this.lx;
-			if (this.py > this.lx) this.py = this.ly;
+			if (this.px < 0 + 8) this.px = 0 + 8;
+			if (this.py < 32) this.py = 32;
+			if (this.px > this.lx - 20) this.px = this.lx - 20;
+			if (this.py > this.ly - 20) this.py = this.ly - 20;
 			Thread.sleep(10);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block

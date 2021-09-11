@@ -17,6 +17,14 @@ public class Main extends JFrame{
 	
 	static Particle[] particles;
 	
+	public static enum CollisionMode
+	{
+		NORMAL,
+		QUADTREE
+	};
+	
+	public static CollisionMode mode = CollisionMode.NORMAL;
+	
 	public Main(int _x, int _y) {
 		
 		new Time().start();
@@ -64,6 +72,7 @@ public class Main extends JFrame{
 		}
 	
 		new Main(SCREENRES_X, SCREENRES_Y);
+		
 	}
 	
 	public class Time extends Thread{
@@ -73,4 +82,5 @@ public class Main extends JFrame{
 			}
 		}
 	}
+	
 }
