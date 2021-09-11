@@ -6,12 +6,19 @@ public class Particle extends Thread {
 	int lx;
 	int ly;
 	
+	int lastX, lastY;
+	
 	int STATE;
 	int AlarmState = 1;
 	
-	public Particle(int px, int py, int lx, int ly) {
+	Particle[] particles;
+	
+	public Particle(int px, int py, int lx, int ly, Particle[] particles) {
 		this.px = px; this.py = py;
 		this.lx = lx; this.ly = ly;
+		this.lastX = px;
+		this.lastY = py;
+		this.particles = particles;
 	}
 	
 	public void RandomMove() {
@@ -53,6 +60,31 @@ public class Particle extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		//Collision detection
+		for(int i = 0; i < particles.length; i++) 
+		{
+			if(particles[i] != this) 
+			{
+				Particle other = particles[i];
+				if(px <= other.px + 8 &&
+				   px + 8 >= other.px &&
+				   py <= other.py + 8 &&
+				   py + 8 >= other.py) 
+				{
+					Collide();
+				}
+			}
+		}
+		
+		lastX = px;
+		lastY = py;
+	}
+	
+	public void Collide() 
+	{
+		px = lastX;
+		py = lastY;
 	}
 	
 	public void run() {

@@ -67,7 +67,7 @@ public class Main extends JFrame{
 			Random r = new Random();
 			int rx = r.nextInt(SCREENRES_X);
 			int ry = r.nextInt(SCREENRES_Y);
-			particles[i] = new Particle(rx, ry, SCREENRES_X, SCREENRES_Y);
+			particles[i] = new Particle(rx, ry, SCREENRES_X, SCREENRES_Y, particles);
 			particles[i].start();
 		}
 	
@@ -78,6 +78,7 @@ public class Main extends JFrame{
 	public class Time extends Thread{
 		public void run() {
 			while(true) {
+				//CollisionDetection();
 				repaint();
 			}
 		}
