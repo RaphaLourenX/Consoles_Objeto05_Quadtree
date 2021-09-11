@@ -12,6 +12,9 @@ public class Particle extends Thread {
 	int STATE;
 	int AlarmState = 1;
 	
+	boolean duringCollision = false;
+	int collisionDuration = 0;
+	
 	Particle[] particles;
 	
 	Color color = Color.white;
@@ -75,6 +78,8 @@ public class Particle extends Thread {
 				   py <= other.py + 8 &&
 				   py + 8 >= other.py) 
 				{
+					duringCollision = true;
+					collisionDuration = 10;
 					Collide();
 				} 
 			}
@@ -88,12 +93,17 @@ public class Particle extends Thread {
 	{
 		px = lastX;
 		py = lastY;
-		color = Color.red;
 		return;
 	}
 	
 	public void run() {
 		while(true) {
+			if (duringCollision == true) {
+				color = Color.red;
+				collisionDuration--;
+				if (collisionDuration <= 0) { duringCollision = false;}
+			} else
+			color = Color.white;
 			RandomMove();
 		}
 	}
