@@ -25,6 +25,14 @@ public class Particle extends Thread {
 				py++; break;
 			case 4:
 				py--; break;
+			case 5:
+				px++; py++; break;
+			case 6:
+				px--; py--; break;
+			case 7:
+				px++; py--; break;
+			case 8:
+				px--; py++; break;
 		    default:
 		    	break;
 			}
@@ -32,7 +40,7 @@ public class Particle extends Thread {
 			this.AlarmState++;
 			if (AlarmState > 100) {
 				Random r = new Random();
-				this.STATE = r.nextInt(5);
+				this.STATE = r.nextInt(9);
 				AlarmState = 0;
 			}
 			
