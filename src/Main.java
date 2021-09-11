@@ -1,5 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,10 +12,10 @@ public class Main extends JFrame{
 	public static int SCREENRES_X = 600;
 	public static int SCREENRES_Y = 600;
 	
-	public static int PARTICLENUMBER = 20;
+	public static int PARTICLENUMBER = 0;
 	public static int PSIZE = 10;
 	
-	static Particle[] particles = new Particle[PARTICLENUMBER];
+	static Particle[] particles;
 	
 	public Main(int _x, int _y) {
 		
@@ -35,6 +38,23 @@ public class Main extends JFrame{
 		}
 		
 	public static void main(String args[]) {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		System.out.println("How many particles do you want to simulate?\n");
+		
+		try {
+			PARTICLENUMBER = Integer.parseInt(br.readLine());
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		particles = new Particle[PARTICLENUMBER];
+		
 		for (int i = 0; i < PARTICLENUMBER; i++) {
 			Random r = new Random();
 			int rx = r.nextInt(SCREENRES_X);
