@@ -26,6 +26,9 @@ public class Main extends JFrame{
 	
 	public static CollisionMode mode = CollisionMode.NORMAL;
 	
+	//Initializing Quad
+	public static Quad quad;
+	
 	public Main(int _x, int _y) {
 		
 		new Time().start();
@@ -49,6 +52,12 @@ public class Main extends JFrame{
 			g.setColor(particles[i].color);
 			g.fillOval(particles[i].px, particles[i].py, PSIZE, PSIZE);
 			}
+		
+		//g.setColor(Color.blue);
+		//g.drawRect(8, 100, SCREENRES_X - 8, SCREENRES_Y - 8);
+		
+		if(quad != null) quad.Draw(g);
+		
 		}
 		
 	public static void main(String args[]) {
@@ -87,6 +96,8 @@ public class Main extends JFrame{
 		public void run() {
 			while(true) {
 				//CollisionDetection();
+				quad = new Quad(new Rect(0, 0, SCREENRES_X, SCREENRES_Y), 4);
+				for(Particle p : particles) quad.Insert(p);
 				repaint();
 			}
 		}
