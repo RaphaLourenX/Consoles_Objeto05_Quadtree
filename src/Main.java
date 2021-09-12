@@ -84,7 +84,7 @@ public class Main extends JFrame{
 			int ry = r.nextInt(SCREENRES_Y);
 			particles[i] = new Particle(rx, ry, SCREENRES_X, SCREENRES_Y, particles);
 			regions.add(new Region(20, 20, SCREENRES_X-40, SCREENRES_Y-40, particles, regions));
-			regions.forEach(region->region.createQuadrant(1));;
+			//regions.forEach(region->region.createQuadrant(1));;
 			particles[i].start();
 		}
 	
