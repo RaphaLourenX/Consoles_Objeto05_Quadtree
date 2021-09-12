@@ -4,9 +4,9 @@
 		
 		public Boolean Contains(Particle p) 
 		{
-			return (p.px > x &&
-					p.px < w &&
-					p.py > y &&
-					p.py < h);
+			return (p.px + 8 > x &&
+					p.px < x + w &&
+					p.py + 8 > y &&
+					p.py < y + h);
 		}
 	}

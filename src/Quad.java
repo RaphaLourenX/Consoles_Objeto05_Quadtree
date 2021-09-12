@@ -25,25 +25,25 @@ public class Quad {
 	public void Insert(Particle p) 
 	{
 		
-		if(!boundary.Contains(p)) return;
+		//if(!boundary.Contains(p)) return;
 		
 		if(particles.size() < limit) particles.add(p);
 		else
 		{
 			if(!divided) Subdivide();
-			subQuads[0].Insert(p);
-			subQuads[1].Insert(p);
-			subQuads[2].Insert(p);
-			subQuads[3].Insert(p);
+			if(subQuads[0].boundary.Contains(p))subQuads[0].Insert(p);
+			if(subQuads[1].boundary.Contains(p))subQuads[1].Insert(p);
+			if(subQuads[2].boundary.Contains(p))subQuads[2].Insert(p);
+			if(subQuads[3].boundary.Contains(p))subQuads[3].Insert(p);
 		}
 	}
 	
 	private void Subdivide() 
 	{
 		subRects[0] = new Rect(boundary.x, boundary.y, boundary.w / 2, boundary.h / 2);
-		subRects[1] = new Rect(boundary.w / 2, 0, boundary.w, boundary.h / 2);
-		subRects[2] = new Rect(boundary.w / 2, boundary.h / 2, boundary.w, boundary.h);
-		subRects[3] = new Rect(boundary.x, boundary.h / 2, boundary.w / 2, boundary.h);
+		subRects[1] = new Rect(boundary.x + boundary.w / 2, boundary.y, boundary.w / 2, boundary.h / 2);
+		subRects[2] = new Rect(boundary.x + boundary.w / 2, boundary.y + boundary.h / 2, boundary.w / 2, boundary.h / 2);
+		subRects[3] = new Rect(boundary.x, boundary.y + boundary.h / 2, boundary.w / 2, boundary.h / 2);
 		
 		subQuads[0] = new Quad(subRects[0], limit);
 		subQuads[1] = new Quad(subRects[1], limit);

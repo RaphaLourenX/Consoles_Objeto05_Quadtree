@@ -1,7 +1,7 @@
 import java.awt.Color;
 import java.util.Random;
 
-public class Particle extends Thread {
+public class Particle{
 	int px;
 	int py;
 	int lx;
@@ -28,7 +28,7 @@ public class Particle extends Thread {
 	}
 	
 	public void RandomMove() {
-		try {
+
 			switch(STATE) {
 			case 1:
 				px++; break;
@@ -61,11 +61,7 @@ public class Particle extends Thread {
 			if (this.py < 32) this.py = 32;
 			if (this.px > this.lx - 20) this.px = this.lx - 20;
 			if (this.py > this.ly - 20) this.py = this.ly - 20;
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		
 		//Collision detection
 		for(int i = 0; i < particles.length; i++) 
@@ -96,15 +92,4 @@ public class Particle extends Thread {
 		return;
 	}
 	
-	public void run() {
-		while(true) {
-			if (duringCollision == true) {
-				color = Color.red;
-				collisionDuration--;
-				if (collisionDuration <= 0) { duringCollision = false;}
-			} else
-			color = Color.white;
-			RandomMove();
-		}
-	}
 }
