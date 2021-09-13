@@ -10,14 +10,13 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 
 public class Main extends JFrame{
-	public static int SCREENRES_X = 1280;
-	public static int SCREENRES_Y = 720;
+	public static int SCREENRES_X = 640;
+	public static int SCREENRES_Y = 360;
 	
 	public static int PARTICLENUMBER = 0;
 	public static int PSIZE = 10;
 	
 	static Particle[] particles;
-	//public static ArrayList<Region> regions = new ArrayList<>();
 	
 	public static enum CollisionMode
 	{
@@ -30,9 +29,8 @@ public class Main extends JFrame{
 	//Initializing Quad
 	public static Quad quad;
 	
+	//Main is the Main Screen
 	public Main(int _x, int _y) {
-		
-		//new Time().start();
 		setSize(_x, _y);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -44,16 +42,15 @@ public class Main extends JFrame{
 		g.setColor(Color.black);
 		g.fillRect(0, 0, SCREENRES_X, SCREENRES_Y);
 		
+		//Creation of Particles
 		for (int i = 0; i < particles.length; i++) {
 			g.setColor(particles[i].color);
 			g.fillOval(particles[i].px, particles[i].py, PSIZE, PSIZE);
 			}
 		
-		//g.setColor(Color.blue);
-		//g.drawRect(8, 100, SCREENRES_X - 8, SCREENRES_Y - 8);
-		
+		//Creation of Quadtree
 		if(quad != null) quad.Draw(g);
-		
+	
 		repaint();
 		
 		}
@@ -81,17 +78,13 @@ public class Main extends JFrame{
 			int rx = r.nextInt(SCREENRES_X);
 			int ry = r.nextInt(SCREENRES_Y);
 			particles[i] = new Particle(rx, ry, SCREENRES_X, SCREENRES_Y, particles);
-			//regions.add(new Region(20, 20, SCREENRES_X-40, SCREENRES_Y-40, particles, regions));
-			//regions.forEach(region->region.createQuadrant(1));;
-			//particles[i].start();
 		}
 	
 		new Main(SCREENRES_X, SCREENRES_Y);
 		
-		while(true) 
-		{
-			for(Particle p : particles) p.RandomMove();
-			quad = new Quad(new Rect(0, 0, SCREENRES_X, SCREENRES_Y), 4);
+		while(true) {
+			for(Particle p : particles) p.Execute();
+			quad = new Quad(new Rect(0, 0, SCREENRES_X, SCREENRES_Y), 1);
 			for(Particle p : particles) quad.Insert(p);
 			try {
 				TimeUnit.MILLISECONDS.sleep(1);
@@ -101,17 +94,6 @@ public class Main extends JFrame{
 			}
 		}
 		
-	}
-	
-	public class Time extends Thread{
-		public void run() {
-			while(true) {
-				//CollisionDetection();
-				quad = new Quad(new Rect(0, 0, SCREENRES_X, SCREENRES_Y), 4);
-				for(Particle p : particles) quad.Insert(p);
-				repaint();
-			}
-		}
 	}
 	
 }

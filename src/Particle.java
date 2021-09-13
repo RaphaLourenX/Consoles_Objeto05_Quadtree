@@ -27,6 +27,19 @@ public class Particle{
 		this.particles = particles;
 	}
 	
+	public void Execute() {
+		if (duringCollision == true) {
+			color = Color.red;
+			collisionDuration--;
+			if (collisionDuration <= 0)
+				duringCollision = false;
+		} else {
+			color = Color.white;
+			RandomMove();
+		}
+
+	}
+	
 	public void RandomMove() {
 
 			switch(STATE) {
@@ -61,8 +74,12 @@ public class Particle{
 			if (this.py < 32) this.py = 32;
 			if (this.px > this.lx - 20) this.px = this.lx - 20;
 			if (this.py > this.ly - 20) this.py = this.ly - 20;
-
 		
+		lastX = px;
+		lastY = py;
+	}
+	
+	public void CollisionCheck() {
 		//Collision detection
 		for(int i = 0; i < particles.length; i++) 
 		{
@@ -75,14 +92,11 @@ public class Particle{
 				   py + 8 >= other.py) 
 				{
 					duringCollision = true;
-					collisionDuration = 10;
+					collisionDuration = 100;
 					Collide();
 				} 
 			}
 		}
-		
-		lastX = px;
-		lastY = py;
 	}
 	
 	public void Collide() 

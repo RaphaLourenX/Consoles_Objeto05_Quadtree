@@ -35,6 +35,10 @@ public class Quad {
 			if(subQuads[1].boundary.Contains(p))subQuads[1].Insert(p);
 			if(subQuads[2].boundary.Contains(p))subQuads[2].Insert(p);
 			if(subQuads[3].boundary.Contains(p))subQuads[3].Insert(p);
+			
+			for(Particle pa : particles) {
+				pa.CollisionCheck();
+			}
 		}
 	}
 	
@@ -55,7 +59,7 @@ public class Quad {
 	
 	public void Draw(Graphics g) 
 	{
-		g.setColor(Color.white);
+		g.setColor(Color.cyan);
 		g.drawRect(boundary.x, boundary.y, boundary.w, boundary.h);
 		for(Quad q : subQuads) if(q != null) q.Draw(g);
 	}
