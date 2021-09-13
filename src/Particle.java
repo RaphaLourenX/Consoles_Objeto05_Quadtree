@@ -77,7 +77,7 @@ public class Particle{
 			
 			CollisionCheck();
 			
-			particles = new ArrayList<Particle>();
+			//particles = new ArrayList<Particle>();
 		
 		lastX = px;
 		lastY = py;

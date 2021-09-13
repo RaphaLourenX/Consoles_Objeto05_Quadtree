@@ -16,7 +16,7 @@ public class Main extends JFrame{
 	public static int PARTICLENUMBER = 0;
 	public static int PSIZE = 10;
 	
-	static Particle[] particles;
+	static ArrayList<Particle> particles = new ArrayList<Particle>();
 	
 	public static enum CollisionMode
 	{
@@ -43,9 +43,9 @@ public class Main extends JFrame{
 		g.fillRect(0, 0, SCREENRES_X, SCREENRES_Y);
 		
 		//Creation of Particles
-		for (int i = 0; i < particles.length; i++) {
-			g.setColor(particles[i].color);
-			g.fillOval(particles[i].px, particles[i].py, PSIZE, PSIZE);
+		for (int i = 0; i < particles.size(); i++) {
+			g.setColor(particles.get(i).color);
+			g.fillOval(particles.get(i).px, particles.get(i).py, PSIZE, PSIZE);
 			}
 		
 		//Creation of Quadtree
@@ -71,20 +71,48 @@ public class Main extends JFrame{
 			e.printStackTrace();
 		}
 		
-		particles = new Particle[PARTICLENUMBER];
+		int choice = 0;
+		
+		System.out.println("What kind of collision system do you want to use?\n");
+		
+		System.out.println("\nPress 1 to normal collision system.\n");
+		
+		System.out.println("\nPress 2 to Quadtree based collision system.\n");
+		
+		try {
+			choice = Integer.parseInt(br.readLine());
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(choice == 1) mode = CollisionMode.NORMAL;
+		if(choice == 2) mode = CollisionMode.QUADTREE;
 		
 		for (int i = 0; i < PARTICLENUMBER; i++) {
 			Random r = new Random();
 			int rx = r.nextInt(SCREENRES_X);
 			int ry = r.nextInt(SCREENRES_Y);
-			particles[i] = new Particle(rx, ry, SCREENRES_X, SCREENRES_Y);
+			particles.add(new Particle(rx, ry, SCREENRES_X, SCREENRES_Y));
 		}
+		
+		for(Particle p : particles) p.particles = particles;
 	
 		new Main(SCREENRES_X, SCREENRES_Y);
 		
 		while(true) {
-			quad = new Quad(new Rect(0, 0, SCREENRES_X, SCREENRES_Y), 4);
-			for(Particle p : particles) quad.Insert(p);
+			switch(mode) 
+			{
+			case NORMAL:
+				break;
+			case QUADTREE:
+				quad = new Quad(new Rect(0, 0, SCREENRES_X, SCREENRES_Y), 4);
+				for(Particle p : particles) quad.Insert(p);
+				break;
+			}
 			for(Particle p : particles) p.Execute();
 			try {
 				TimeUnit.MILLISECONDS.sleep(1);
