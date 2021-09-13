@@ -10,11 +10,13 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 
 public class Main extends JFrame{
-	public static int SCREENRES_X = 1280;
-	public static int SCREENRES_Y = 720;
+	public static int SCREENRES_X = 640;
+	public static int SCREENRES_Y = 360;
 	
 	public static int PARTICLENUMBER = 0;
 	public static int PSIZE = 10;
+	
+	public static long MSTIME = 0;
 	
 	static ArrayList<Particle> particles = new ArrayList<Particle>();
 	
@@ -50,6 +52,12 @@ public class Main extends JFrame{
 		
 		//Creation of Quadtree
 		if(quad != null) quad.Draw(g);
+		
+		//Draw Speedup Timer
+		g.setColor(Color.black);
+		g.fillRect(SCREENRES_X - 120, 30, 100, 30);
+		g.setColor(Color.white);
+		g.drawString(MSTIME + "ms", SCREENRES_X - 100, 60);
 	
 		repaint();
 		
@@ -123,7 +131,7 @@ public class Main extends JFrame{
 				e.printStackTrace();
 			}
 			long totalTime = System.currentTimeMillis() - start;
-			System.out.println(totalTime);
+			MSTIME = totalTime;
 		}
 		
 	}
