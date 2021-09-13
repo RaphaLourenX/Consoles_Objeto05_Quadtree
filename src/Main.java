@@ -10,8 +10,8 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 
 public class Main extends JFrame{
-	public static int SCREENRES_X = 640;
-	public static int SCREENRES_Y = 360;
+	public static int SCREENRES_X = 1280;
+	public static int SCREENRES_Y = 720;
 	
 	public static int PARTICLENUMBER = 0;
 	public static int PSIZE = 10;
@@ -104,6 +104,7 @@ public class Main extends JFrame{
 		new Main(SCREENRES_X, SCREENRES_Y);
 		
 		while(true) {
+			long start = System.currentTimeMillis();
 			switch(mode) 
 			{
 			case NORMAL:
@@ -114,12 +115,15 @@ public class Main extends JFrame{
 				break;
 			}
 			for(Particle p : particles) p.Execute();
+
 			try {
 				TimeUnit.MILLISECONDS.sleep(1);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			long totalTime = System.currentTimeMillis() - start;
+			System.out.println(totalTime);
 		}
 		
 	}
