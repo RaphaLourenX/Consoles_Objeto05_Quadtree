@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Particle{
@@ -15,16 +16,15 @@ public class Particle{
 	boolean duringCollision = false;
 	int collisionDuration = 0;
 	
-	Particle[] particles;
+	ArrayList<Particle> particles = new ArrayList<Particle>();
 	
 	Color color = Color.white;
 	
-	public Particle(int px, int py, int lx, int ly, Particle[] particles) {
+	public Particle(int px, int py, int lx, int ly) {
 		this.px = px; this.py = py;
 		this.lx = lx; this.ly = ly;
 		this.lastX = px;
 		this.lastY = py;
-		this.particles = particles;
 	}
 	
 	public void Execute() {
@@ -74,6 +74,10 @@ public class Particle{
 			if (this.py < 32) this.py = 32;
 			if (this.px > this.lx - 20) this.px = this.lx - 20;
 			if (this.py > this.ly - 20) this.py = this.ly - 20;
+			
+			CollisionCheck();
+			
+			particles = new ArrayList<Particle>();
 		
 		lastX = px;
 		lastY = py;
@@ -81,11 +85,11 @@ public class Particle{
 	
 	public void CollisionCheck() {
 		//Collision detection
-		for(int i = 0; i < particles.length; i++) 
+		for(int i = 0; i < particles.size(); i++) 
 		{
-			if(particles[i] != this) 
+			if(particles.get(i) != this) 
 			{
-				Particle other = particles[i];
+				Particle other = particles.get(i);
 				if(px <= other.px + 8 &&
 				   px + 8 >= other.px &&
 				   py <= other.py + 8 &&

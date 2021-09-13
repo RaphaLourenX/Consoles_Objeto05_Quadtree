@@ -77,15 +77,15 @@ public class Main extends JFrame{
 			Random r = new Random();
 			int rx = r.nextInt(SCREENRES_X);
 			int ry = r.nextInt(SCREENRES_Y);
-			particles[i] = new Particle(rx, ry, SCREENRES_X, SCREENRES_Y, particles);
+			particles[i] = new Particle(rx, ry, SCREENRES_X, SCREENRES_Y);
 		}
 	
 		new Main(SCREENRES_X, SCREENRES_Y);
 		
 		while(true) {
-			for(Particle p : particles) p.Execute();
-			quad = new Quad(new Rect(0, 0, SCREENRES_X, SCREENRES_Y), 1);
+			quad = new Quad(new Rect(0, 0, SCREENRES_X, SCREENRES_Y), 4);
 			for(Particle p : particles) quad.Insert(p);
+			for(Particle p : particles) p.Execute();
 			try {
 				TimeUnit.MILLISECONDS.sleep(1);
 			} catch (InterruptedException e) {

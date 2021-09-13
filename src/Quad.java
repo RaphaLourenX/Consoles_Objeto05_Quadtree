@@ -27,18 +27,35 @@ public class Quad {
 		
 		//if(!boundary.Contains(p)) return;
 		
-		if(particles.size() < limit) particles.add(p);
+		if(particles.size() < limit) 
+		{
+			particles.add(p);
+			p.particles = particles;
+		}
 		else
 		{
 			if(!divided) Subdivide();
-			if(subQuads[0].boundary.Contains(p))subQuads[0].Insert(p);
-			if(subQuads[1].boundary.Contains(p))subQuads[1].Insert(p);
-			if(subQuads[2].boundary.Contains(p))subQuads[2].Insert(p);
-			if(subQuads[3].boundary.Contains(p))subQuads[3].Insert(p);
-			
-			for(Particle pa : particles) {
-				pa.CollisionCheck();
+			if(subQuads[0].boundary.Contains(p)) 
+			{
+				subQuads[0].Insert(p);
+				for(Particle pt : particles) p.particles.add(pt) ;
 			}
+			if(subQuads[1].boundary.Contains(p))
+			{
+				subQuads[1].Insert(p);
+				for(Particle pt : particles) p.particles.add(pt) ;
+			}
+			if(subQuads[2].boundary.Contains(p))
+			{
+				subQuads[2].Insert(p);
+				for(Particle pt : particles) p.particles.add(pt) ;
+			}
+			if(subQuads[3].boundary.Contains(p))
+			{
+				subQuads[3].Insert(p);
+				for(Particle pt : particles) p.particles.add(pt) ;
+			}
+			
 		}
 	}
 	
