@@ -34,11 +34,8 @@ public class Particle{
 			if (collisionDuration <= 0)
 				duringCollision = false;
 		} else {
-			color = Color.white;
-			RandomMove();
-			
-		}
-
+			color = Color.white; }
+		RandomMove();
 	}
 	
 	public void RandomMove() {
@@ -67,7 +64,7 @@ public class Particle{
 			this.AlarmState++;
 			if (AlarmState > 100) {
 				Random r = new Random();
-				this.STATE = r.nextInt(5);
+				this.STATE = r.nextInt(9);
 				AlarmState = 0;
 			}
 			
@@ -115,7 +112,7 @@ public class Particle{
 				   py + 8 >= other.py) 
 				{
 					duringCollision = true;
-					collisionDuration = 10;
+					collisionDuration = 100;
 					Collide();
 			}
 		}

@@ -121,7 +121,7 @@ public class Main extends JFrame{
 			switch(mode) 
 			{
 			case NORMAL:
-				//for(Particle p : particles) p.CollisionCheck();
+				for(Particle p : particles) p.CollisionCheck();
 				break;
 			case QUADTREE:
 				quad = new Quad(new Rect(0, 0, SCREENRES_X, SCREENRES_Y), 4);
@@ -137,6 +137,7 @@ public class Main extends JFrame{
 			}
 			long totalTime = System.currentTimeMillis() - start;
 			MSTIME = totalTime;
+			System.out.println(totalTime + "ms");
 		}
 		
 	}
