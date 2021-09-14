@@ -10,8 +10,8 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 
 public class Main extends JFrame{
-	public static int SCREENRES_X = 640;
-	public static int SCREENRES_Y = 360;
+	public static int SCREENRES_X = 1280;
+	public static int SCREENRES_Y = 720;
 	
 	public static int PARTICLENUMBER = 0;
 	public static int PSIZE = 10;
@@ -40,6 +40,7 @@ public class Main extends JFrame{
 	}
 
 	public void paint(Graphics g) {
+		
 		//Set Background Color
 		g.setColor(Color.black);
 		g.fillRect(0, 0, SCREENRES_X, SCREENRES_Y);
@@ -47,7 +48,7 @@ public class Main extends JFrame{
 		//Creation of Particles
 		for (int i = 0; i < particles.size(); i++) {
 			g.setColor(particles.get(i).color);
-			g.fillOval(particles.get(i).px, particles.get(i).py, PSIZE, PSIZE);
+			g.fillOval((int)particles.get(i).px, (int)particles.get(i).py, PSIZE, PSIZE);
 			}
 		
 		//Creation of Quadtree
@@ -58,7 +59,8 @@ public class Main extends JFrame{
 		g.fillRect(SCREENRES_X - 120, 30, 100, 30);
 		g.setColor(Color.white);
 		g.drawString(MSTIME + "ms", SCREENRES_X - 100, 60);
-	
+		
+		java.awt.Toolkit.getDefaultToolkit().sync();
 		repaint();
 		
 		}
@@ -102,8 +104,8 @@ public class Main extends JFrame{
 		
 		for (int i = 0; i < PARTICLENUMBER; i++) {
 			Random r = new Random();
-			int rx = r.nextInt(SCREENRES_X);
-			int ry = r.nextInt(SCREENRES_Y);
+			float rx = r.nextFloat() * SCREENRES_X;
+			float ry = r.nextFloat() * SCREENRES_Y;
 			particles.add(new Particle(rx, ry, SCREENRES_X, SCREENRES_Y));
 		}
 		
@@ -113,16 +115,19 @@ public class Main extends JFrame{
 		
 		while(true) {
 			long start = System.currentTimeMillis();
+			
+			for(Particle p : particles) p.Execute();
+			
 			switch(mode) 
 			{
 			case NORMAL:
+				//for(Particle p : particles) p.CollisionCheck();
 				break;
 			case QUADTREE:
 				quad = new Quad(new Rect(0, 0, SCREENRES_X, SCREENRES_Y), 4);
 				for(Particle p : particles) quad.Insert(p);
 				break;
 			}
-			for(Particle p : particles) p.Execute();
 
 			try {
 				TimeUnit.MILLISECONDS.sleep(1);

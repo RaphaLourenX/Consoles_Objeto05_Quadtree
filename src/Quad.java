@@ -24,7 +24,6 @@ public class Quad {
 	
 	public void Insert(Particle p) 
 	{
-		
 		//if(!boundary.Contains(p)) return;
 		
 		if(particles.size() < limit) 
@@ -55,6 +54,7 @@ public class Quad {
 				subQuads[3].Insert(p);
 				for(Particle pt : particles) p.particles.add(pt) ;
 			}
+			
 			
 		}
 	}

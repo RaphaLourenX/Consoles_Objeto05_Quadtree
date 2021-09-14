@@ -3,12 +3,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Particle{
-	int px;
-	int py;
-	int lx;
-	int ly;
+	float px;
+	float py;
+	float lx;
+	float ly;
 	
-	int lastX, lastY;
+	float lastX, lastY;
 	
 	int STATE;
 	int AlarmState = 1;
@@ -20,7 +20,7 @@ public class Particle{
 	
 	Color color = Color.white;
 	
-	public Particle(int px, int py, int lx, int ly) {
+	public Particle(float px, float py, float lx, float ly) {
 		this.px = px; this.py = py;
 		this.lx = lx; this.ly = ly;
 		this.lastX = px;
@@ -36,6 +36,7 @@ public class Particle{
 		} else {
 			color = Color.white;
 			RandomMove();
+			
 		}
 
 	}
@@ -66,7 +67,7 @@ public class Particle{
 			this.AlarmState++;
 			if (AlarmState > 100) {
 				Random r = new Random();
-				this.STATE = r.nextInt(9);
+				this.STATE = r.nextInt(5);
 				AlarmState = 0;
 			}
 			
@@ -75,7 +76,7 @@ public class Particle{
 			if (this.px > this.lx - 20) this.px = this.lx - 20;
 			if (this.py > this.ly - 20) this.py = this.ly - 20;
 			
-			CollisionCheck();
+			//CollisionCheck();
 			
 			//particles = new ArrayList<Particle>();
 		
@@ -96,9 +97,26 @@ public class Particle{
 				   py + 8 >= other.py) 
 				{
 					duringCollision = true;
-					collisionDuration = 100;
+					collisionDuration = 10;
 					Collide();
 				} 
+			}
+		}
+	}
+	
+	public void CollisionCheckQuad(Particle p) {
+		//Collision detection
+			if(p != this) 
+			{
+				Particle other = p;
+				if(px <= other.px + 8 &&
+				   px + 8 >= other.px &&
+				   py <= other.py + 8 &&
+				   py + 8 >= other.py) 
+				{
+					duringCollision = true;
+					collisionDuration = 10;
+					Collide();
 			}
 		}
 	}
