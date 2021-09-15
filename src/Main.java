@@ -109,28 +109,28 @@ public class Main extends JFrame{
 			particles.add(new Particle(rx, ry, SCREENRES_X, SCREENRES_Y));
 		}
 		
-		for(Particle p : particles) p.particles = particles;
+		if(mode == CollisionMode.NORMAL) for(Particle p : particles) p.particles = particles;
 	
 		new Main(SCREENRES_X, SCREENRES_Y);
 		
 		while(true) {
 			long start = System.currentTimeMillis();
 			
-			for(Particle p : particles) p.Execute();
-			
 			switch(mode) 
 			{
 			case NORMAL:
-				for(Particle p : particles) p.CollisionCheck();
 				break;
 			case QUADTREE:
 				quad = new Quad(new Rect(0, 0, SCREENRES_X, SCREENRES_Y), 4);
 				for(Particle p : particles) quad.Insert(p);
 				break;
 			}
+			
+			for(Particle p : particles) p.Execute();
+			for(Particle p : particles) p.CollisionCheck();
 
 			try {
-				TimeUnit.MILLISECONDS.sleep(1);
+				TimeUnit.MILLISECONDS.sleep(5);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
