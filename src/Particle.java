@@ -93,7 +93,9 @@ public class Particle{
 				{
 					duringCollision = true;
 					collisionDuration = 10;
-					Collide();
+					other.duringCollision = true;
+					other.collisionDuration = 10;
+					//Collide();
 				} 
 			}
 		}
