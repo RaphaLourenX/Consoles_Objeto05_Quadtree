@@ -25,36 +25,38 @@ public class Quad {
 	public void Insert(Particle p) 
 	{
 		//if(!boundary.Contains(p)) return;
-		
-		if(particles.size() < limit) 
-		{
-			particles.add(p);
-			p.particles = particles;
-		}
-		else
-		{
-			if(!divided) Subdivide();
-			if(subQuads[0].boundary.Contains(p)) 
+		if (this.boundary.w > 16 && this.boundary.h > 16) {
+			if(particles.size() < limit) 
 			{
-				subQuads[0].Insert(p);
-				for(Particle pt : particles) p.particles.add(pt) ;
+				particles.add(p);
+				p.particles = particles;
 			}
-			if(subQuads[1].boundary.Contains(p))
+			else
 			{
-				subQuads[1].Insert(p);
-				for(Particle pt : particles) p.particles.add(pt) ;
+				if(!divided) Subdivide();
+				if(subQuads[0].boundary.Contains(p)) 
+				{
+					subQuads[0].Insert(p);
+					for(Particle pt : particles) p.particles.add(pt) ;
+				}
+				if(subQuads[1].boundary.Contains(p))
+				{
+					subQuads[1].Insert(p);
+					for(Particle pt : particles) p.particles.add(pt) ;
+				}
+				if(subQuads[2].boundary.Contains(p))
+				{
+					subQuads[2].Insert(p);
+					for(Particle pt : particles) p.particles.add(pt) ;
+				}
+				if(subQuads[3].boundary.Contains(p))
+				{
+					subQuads[3].Insert(p);
+					for(Particle pt : particles) p.particles.add(pt) ;
+				}
+				
+				
 			}
-			if(subQuads[2].boundary.Contains(p))
-			{
-				subQuads[2].Insert(p);
-				for(Particle pt : particles) p.particles.add(pt) ;
-			}
-			if(subQuads[3].boundary.Contains(p))
-			{
-				subQuads[3].Insert(p);
-				for(Particle pt : particles) p.particles.add(pt) ;
-			}
-			
 			
 		}
 	}

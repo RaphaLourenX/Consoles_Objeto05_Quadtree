@@ -131,15 +131,16 @@ public class Main extends JFrame{
 				break;
 			}
 
+			long totalTime = System.currentTimeMillis() - start;
+			MSTIME = totalTime;
+			System.out.println(totalTime + "ms");
+			
 			try {
 				TimeUnit.MILLISECONDS.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			long totalTime = System.currentTimeMillis() - start;
-			MSTIME = totalTime;
-			System.out.println(totalTime + "ms");
+			} 
 		}
 		
 	}

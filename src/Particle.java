@@ -64,7 +64,7 @@ public class Particle{
 			this.AlarmState++;
 			if (AlarmState > 100) {
 				Random r = new Random();
-				this.STATE = r.nextInt(9);
+				this.STATE = r.nextInt(5);
 				AlarmState = 0;
 			}
 			
