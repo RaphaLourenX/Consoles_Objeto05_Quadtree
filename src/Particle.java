@@ -68,10 +68,10 @@ public class Particle{
 				AlarmState = 0;
 			}
 			
-			if (this.px < 0 + 8) this.px = 0 + 8;
-			if (this.py < 32) this.py = 32;
-			if (this.px > this.lx - 20) this.px = this.lx - 20;
-			if (this.py > this.ly - 20) this.py = this.ly - 20;
+			if (this.px < 0 + 8) this.px = this.ly - 8;
+			if (this.py < 32) this.py = this.ly - 20;
+			if (this.px > this.lx - 20) this.px = 0 + 8;
+			if (this.py > this.ly - 20) this.py = 32;
 			
 			//CollisionCheck();
 			

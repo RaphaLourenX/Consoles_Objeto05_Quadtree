@@ -77,7 +77,7 @@ public class Quad {
 	public void Draw(Graphics g) 
 	{
 		g.setColor(Color.cyan);
-		g.drawRect(boundary.x, boundary.y, boundary.w, boundary.h);
+		g.drawRect((int)boundary.x, (int)boundary.y, (int)boundary.w, (int)boundary.h);
 		for(Quad q : subQuads) if(q != null) q.Draw(g);
 	}
 	
