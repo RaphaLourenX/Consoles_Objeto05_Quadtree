@@ -119,18 +119,20 @@ public class Main extends JFrame{
 			switch(mode) 
 			{
 			case NORMAL:
+				for(Particle p : particles) p.Execute();
+				for(Particle p : particles) p.CollisionCheck();
 				break;
 			case QUADTREE:
 				quad = new Quad(new Rect(0, 0, SCREENRES_X, SCREENRES_Y), 4);
 				for(Particle p : particles) quad.Insert(p);
+				for(Particle p : particles) p.Execute();
+				for(Particle p : particles) p.CollisionCheck();
+				for(Particle p : particles) p.particles = new ArrayList<Particle>();
 				break;
 			}
-			
-			for(Particle p : particles) p.Execute();
-			for(Particle p : particles) p.CollisionCheck();
 
 			try {
-				TimeUnit.MILLISECONDS.sleep(5);
+				TimeUnit.MILLISECONDS.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

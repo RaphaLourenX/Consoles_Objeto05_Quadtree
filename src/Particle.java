@@ -74,8 +74,6 @@ public class Particle{
 			if (this.py > this.ly - 20) this.py = 32;
 			
 			//CollisionCheck();
-			
-			//particles = new ArrayList<Particle>();
 		
 		lastX = px;
 		lastY = py;
