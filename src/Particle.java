@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -41,79 +42,49 @@ public class Particle{
 	public void RandomMove() {
 
 			switch(STATE) {
-			case 1:
-				px++; break;
-			case 2:
-				px--; break;
-			case 3:
-				py++; break;
-			case 4:
-				py--; break;
-			case 5:
-				px++; py++; break;
-			case 6:
-				px--; py--; break;
-			case 7:
-				px++; py--; break;
-			case 8:
-				px--; py++; break;
-		    default:
-		    	break;
+			case 1: px++; break;
+			case 2: px--; break;
+			case 3: py++; break;
+			case 4: py--; break;
+			case 5: px++; py++; break;
+			case 6: px--; py--; break;
+			case 7: px++; py--; break;
+			case 8: px--; py++; break;
+		    default: break;
 			}
 			
 			this.AlarmState++;
 			if (AlarmState > 100) {
 				Random r = new Random();
-				this.STATE = r.nextInt(5);
+				this.STATE = r.nextInt(9);
 				AlarmState = 0;
 			}
 			
-			if (this.px < 0 + 8) this.px = this.ly - 8;
-			if (this.py < 32) this.py = this.ly - 20;
-			if (this.px > this.lx - 20) this.px = 0 + 8;
-			if (this.py > this.ly - 20) this.py = 32;
+			if (this.px < 0) this.px = this.ly;
+			if (this.py < 0) this.py = this.ly;
+			if (this.px > this.lx) this.px = 0;
+			if (this.py > this.ly) this.py = 0;
 			
-			//CollisionCheck();
-		
 		lastX = px;
 		lastY = py;
 	}
 	
 	public void CollisionCheck() {
-		//Collision detection
 		for(int i = 0; i < particles.size(); i++) 
 		{
 			if(particles.get(i) != this) 
 			{
 				Particle other = particles.get(i);
-				if(px <= other.px + 8 &&
-				   px + 8 >= other.px &&
-				   py <= other.py + 8 &&
-				   py + 8 >= other.py) 
+				if(px <= other.px + 4 &&
+				   px + 4 >= other.px &&
+				   py <= other.py + 4 &&
+				   py + 4 >= other.py) 
 				{
 					duringCollision = true;
 					collisionDuration = 10;
 					other.duringCollision = true;
 					other.collisionDuration = 10;
-					//Collide();
 				} 
-			}
-		}
-	}
-	
-	public void CollisionCheckQuad(Particle p) {
-		//Collision detection
-			if(p != this) 
-			{
-				Particle other = p;
-				if(px <= other.px + 8 &&
-				   px + 8 >= other.px &&
-				   py <= other.py + 8 &&
-				   py + 8 >= other.py) 
-				{
-					duringCollision = true;
-					collisionDuration = 100;
-					Collide();
 			}
 		}
 	}
@@ -123,6 +94,11 @@ public class Particle{
 		px = lastX;
 		py = lastY;
 		return;
+	}
+	
+	public void Draw(Graphics g) {
+		g.setColor(this.color);
+		g.fillOval((int)this.px, (int)this.py, 6, 6);
 	}
 	
 }
