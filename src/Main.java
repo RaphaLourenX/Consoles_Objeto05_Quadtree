@@ -3,15 +3,18 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 public class Main extends JFrame {
+	
+	public String windowName = "";
+	
 	public Main() {
 		Begin();
 	}
 
 	private void Begin() {
-		add(new Screen());
+		add(new Screen(this));
         setResizable(false);
         pack();
-        setTitle("Quadtree");
+        setTitle(windowName);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

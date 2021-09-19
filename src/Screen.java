@@ -1,8 +1,12 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,6 +19,7 @@ import javax.swing.Timer;
 
 
 public class Screen extends JPanel implements ActionListener {
+	public static Main main;
 	
 	public static int SCREENRES_X = 1440;
 	public static int SCREENRES_Y = 900;
@@ -33,12 +38,33 @@ public class Screen extends JPanel implements ActionListener {
 	//Initializing Quad
 	public static Quad quad;
 	
-	public Screen() {
+	
+	public Screen(Main main) {
+		this.main = main;
+		
 		initScreen();
+		
+		addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				addParticle();
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {}
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+			@Override
+			public void mouseExited(MouseEvent e) {}
+			
+		});
 	}
 	
 	public void initScreen() {
-       // addKeyListener(new TAdapter());
+		
         setBackground(Color.black);
         setFocusable(true);
         setPreferredSize(new Dimension(SCREENRES_X, SCREENRES_Y));
@@ -53,12 +79,10 @@ public class Screen extends JPanel implements ActionListener {
 		try {
 			PARTICLENUMBER = Integer.parseInt(br.readLine());
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
 			System.out.println("I can't work putting a word as a quantity. I need a number!");
 			System.exit(1);
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -71,12 +95,10 @@ public class Screen extends JPanel implements ActionListener {
 		try {
 			choice = Integer.parseInt(br.readLine());
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
 			System.out.println("I can't work putting a word as a quantity. I need a number!");
 			System.exit(1);
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -121,7 +143,7 @@ public class Screen extends JPanel implements ActionListener {
     }
     
     public void run() {
-		// TODO Auto-generated method stub
+    	
 		long start = System.currentTimeMillis();
 		
 		switch(mode) 
@@ -143,14 +165,21 @@ public class Screen extends JPanel implements ActionListener {
 		
 		long totalTime = System.currentTimeMillis() - start;
 		MSTIME = totalTime;
-		System.out.println(totalTime + "ms");
+		
+		main.setTitle("[Quadtree] Particles: " + particles.size() +
+				" / " + totalTime + "ms " + 
+				"(" + SCREENRES_X + "x" + SCREENRES_Y + ")");
+		
+    }
+    
+    public void addParticle() {
+    	Point mouse = getMousePosition();
+    	particles.add(new Particle(mouse.x, mouse.y, SCREENRES_X, SCREENRES_Y));
     }
     
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		run();
 	}
-	
-	
 
 }
